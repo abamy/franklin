@@ -16,6 +16,32 @@ import {
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
 /**
+ * Convience method for creating tags in one line of code
+ * @param {string} tag Tag to create
+ * @param {object} attributes Key/value object of attributes
+ * @param {HTMLElement | HTMLElement[] | string} children Child element
+ * @returns {HTMLElement} The created tag
+ */
+export function createTag(tag, attributes, children) {
+  const element = document.createElement(tag);
+  if (children) {
+    if (children instanceof HTMLElement || children instanceof SVGElement || children instanceof DocumentFragment) {
+      element.append(children);
+    } else if (Array.isArray(children)) {
+      element.append(...children);
+    } else {
+      element.insertAdjacentHTML('beforeend', children);
+    }
+  }
+  if (attributes) {
+    Object.entries(attributes).forEach(([key, val]) => {
+      element.setAttribute(key, val);
+    });
+  }
+  return element;
+}
+
+/**
  * Builds hero block and prepends to main in a new section.
  * @param {Element} main The container element
  */
