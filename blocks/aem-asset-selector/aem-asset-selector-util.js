@@ -98,7 +98,7 @@ function handleSelection(selection) {
     // eslint-disable-next-line no-alert
     alert('Please select an approved asset only!!');
   } else {
-    const mimetype = selectedAsset.mimetype;
+    const { mimetype } = selectedAsset;
     let deliveryUrl;
     if (mimetype && mimetype.startsWith('image')) {
       deliveryUrl = `https://${selection[0]['repo:repositoryId'].replace('author', 'delivery')}`

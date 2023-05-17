@@ -25,7 +25,8 @@ const LCP_BLOCKS = []; // add your LCP blocks to the list
 export function createTag(tag, attributes, children) {
   const element = document.createElement(tag);
   if (children) {
-    if (children instanceof HTMLElement || children instanceof SVGElement || children instanceof DocumentFragment) {
+    if (children instanceof HTMLElement
+      || children instanceof SVGElement || children instanceof DocumentFragment) {
       element.append(children);
     } else if (Array.isArray(children)) {
       element.append(...children);
