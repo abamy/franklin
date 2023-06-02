@@ -12,6 +12,7 @@ import {
   loadBlocks,
   loadCSS,
 } from './lib-franklin.js';
+import decoratePolarisAssets from './lib-polaris.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
