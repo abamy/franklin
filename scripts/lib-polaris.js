@@ -39,12 +39,12 @@ export default function decoratePolarisAssets(element) {
           'src',
           `${
             deliveryURL.origin + deliveryURL.pathname + mediaBusURL.search
-          }&ck=${ck}`
+          }&ck=${ck}`,
         );
       } else {
         img.setAttribute(
           'src',
-          `${deliveryURL.origin + deliveryURL.pathname}?ck=${ck}`
+          `${deliveryURL.origin + deliveryURL.pathname}?ck=${ck}`,
         );
       }
 
@@ -58,12 +58,12 @@ export default function decoratePolarisAssets(element) {
               'srcset',
               `${
                 deliveryURL.origin + deliveryURL.pathname + loc.search
-              }&ck=${ck}`
+              }&ck=${ck}`,
             );
           } else {
             source.setAttribute(
               'srcset',
-              `${deliveryURL.origin + deliveryURL.pathname}?ck=${ck}`
+              `${deliveryURL.origin + deliveryURL.pathname}?ck=${ck}`,
             );
           }
         });

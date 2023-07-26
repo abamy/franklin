@@ -17,7 +17,7 @@ const loadScript = async (url, callback, type) => {
 };
 
 const getDefaultEmbed = (
-  url
+  url,
 ) => `<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;">
     <iframe src="${url.href}" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen=""
       scrolling="no" allow="encrypted-media" title="Content from ${url.hostname}" loading="lazy">
@@ -36,22 +36,22 @@ const embedDash = (url) => {
 };
 async function initHLS(manifestUri) {
   await loadScript(
-    'https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.8.8/hls.min.js'
+    'https://cdnjs.cloudflare.com/ajax/libs/hls.js/0.8.8/hls.min.js',
   );
-  let video = document.getElementById('video');
+  const video = document.getElementById('video');
   if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    //native browser support
+    // native browser support
     video.src = manifestUri;
     console.log('Playing via native HLS');
   } else {
-    //console.log("typeofhls = " + typeof Hls);
-    //check if Hls library has been loaded
+    // console.log("typeofhls = " + typeof Hls);
+    // check if Hls library has been loaded
     while (typeof Hls !== 'function') {
       console.log('waiting');
       await new Promise((r) => setTimeout(r, 1000));
     }
-    var hls = new Hls();
-    //console.log("typeofhls = " + typeof Hls);
+    const hls = new Hls();
+    // console.log("typeofhls = " + typeof Hls);
     hls.loadSource(manifestUri.href);
     hls.attachMedia(video);
   }
@@ -66,7 +66,7 @@ const embedHLS = (url) => {
 
 const embedPolarisVideoDelivery = (url) => {
   if (url.href.endsWith('mpd')) return embedDash(url);
-  else return embedHLS(url);
+  return embedHLS(url);
 };
 
 const embedYoutube = (url) => {
@@ -125,9 +125,7 @@ const loadEmbed = (block, link) => {
     },
   ];
 
-  const config = EMBEDS_CONFIG.find((e) =>
-    e.match.some((match) => link.includes(match))
-  );
+  const config = EMBEDS_CONFIG.find((e) => e.match.some((match) => link.includes(match)));
   const url = new URL(link);
   if (config) {
     block.innerHTML = config.embed(url);
