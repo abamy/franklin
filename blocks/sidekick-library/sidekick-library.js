@@ -1,5 +1,5 @@
 import 'https://main--franklin-library-host--dylandepass.hlx.live/tools/sidekick/library/index.js';
-import { readBlockConfig } from '../../scripts/lib-franklin.js';
+import { readBlockConfig } from '../../scripts/aem.js';
 
 export default function decorate(block) {
   const blockConfig = readBlockConfig(block);
