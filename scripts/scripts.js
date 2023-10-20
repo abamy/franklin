@@ -11,9 +11,25 @@ import {
   waitForLCP,
   loadBlocks,
   loadCSS,
+  toClassName,
+  getMetadata
 } from "./aem.js";
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
+
+// Define the custom audiences mapping for experimentation
+const EXPERIMENTATION_CONFIG = {
+  audiences: {
+    device: {
+      mobile: () => window.innerWidth < 600,
+      desktop: () => window.innerWidth >= 600,
+    },
+    visitor: {
+      new: () => !localStorage.getItem('aem-visitor-returning'),
+      returning: () => !!localStorage.getItem('aem-visitor-returning'),
+    },
+  },
+};
 
 /**
  * Builds hero block and prepends to main in a new section.
@@ -81,6 +97,15 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = "en";
   decorateTemplateAndTheme();
+
+  // load experiments
+  const experiment = toClassName(getMetadata('experiment'));
+  const instantExperiment = getMetadata('instant-experiment');
+  if (instantExperiment || experiment) {
+    const { runExperiment } = await import('./experimentation/index.js');
+    await runExperiment(experiment, instantExperiment, EXPERIMENTATION_CONFIG);
+  }
+
   const main = doc.querySelector("main");
   if (main) {
     decorateMain(main);

@@ -24,6 +24,7 @@ export const DEFAULT_OPTIONS = {
   queryParameter: 'experiment',
 };
 
+window.hlx.patchBlockConfig = []
 /**
  * Parses the experimentation configuration sheet and creates an internal model.
  *
@@ -366,6 +367,8 @@ export async function runExperiment(experiment, instantExperiment, customOptions
     return false;
   }
 
+  //FIXME
+  experimentConfig.selectedVariant = "challenger-1"
   const { pages } = experimentConfig.variants[experimentConfig.selectedVariant];
   if (!pages.length) {
     return false;
